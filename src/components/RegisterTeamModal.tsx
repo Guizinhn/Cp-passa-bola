@@ -13,12 +13,14 @@ export const RegisterTeamModal = ({
   const [formData, setFormData] = useState({
     teamName: '',
     contactPerson: '',
+    cpf: '',
     email: '',
     phone: '',
     city: '',
     state: '',
     category: '',
-    additionalInfo: ''
+    additionalInfo: '',
+    playersList: ''
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const {
@@ -30,31 +32,64 @@ export const RegisterTeamModal = ({
       [name]: value
     }));
   };
+  const parsePlayersList = (playersText: string) => {
+    const players = [];
+    const lines = playersText.trim().split('\n').filter(line => line.trim());
+    
+    for (const line of lines) {
+      // Formato esperado: "Nome da Jogadora - CPF" ou "Nome da Jogadora - CPF - Posição"
+      const parts = line.split(' - ');
+      if (parts.length >= 2) {
+        const name = parts[0].trim();
+        const cpf = parts[1].trim();
+        const position = parts[2]?.trim() || '';
+        
+        if (name && cpf) {
+          players.push({
+            id: Date.now().toString() + Math.random().toString(),
+            name,
+            cpf,
+            position: position || undefined
+          });
+        }
+      }
+    }
+    
+    return players;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Processar lista de jogadoras
+    const players = formData.playersList ? parsePlayersList(formData.playersList) : [];
     
     // Adicionar o time ao contexto
     addTeam({
       teamName: formData.teamName,
       contactPerson: formData.contactPerson,
+      cpf: formData.cpf,
       email: formData.email,
       phone: formData.phone,
       city: formData.city,
       state: formData.state,
       category: formData.category,
       additionalInfo: formData.additionalInfo,
+      players: players,
     });
     
     // Resetar o formulário
     setFormData({
       teamName: '',
       contactPerson: '',
+      cpf: '',
       email: '',
       phone: '',
       city: '',
       state: '',
       category: '',
-      additionalInfo: ''
+      additionalInfo: '',
+      playersList: ''
     });
     
     // Fechar o modal
@@ -86,6 +121,12 @@ export const RegisterTeamModal = ({
                 </div>
                 <input id="contactPerson" name="contactPerson" type="text" value={formData.contactPerson} onChange={handleChange} className="bg-gray-800 text-white block w-full pl-10 pr-3 py-2 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none" placeholder="Nome completo" required />
               </div>
+            </div>
+            <div>
+              <label htmlFor="cpf" className="block text-sm font-medium text-gray-300 mb-1">
+                CPF da Pessoa de Contato*
+              </label>
+              <input id="cpf" name="cpf" type="text" value={formData.cpf} onChange={handleChange} className="bg-gray-800 text-white block w-full px-4 py-2 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none" placeholder="000.000.000-00" required />
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
@@ -170,6 +211,23 @@ export const RegisterTeamModal = ({
                 <option value="veterano">Veterano 45+</option>
               </select>
             </div>
+          </div>
+          <div>
+            <label htmlFor="playersList" className="block text-sm font-medium text-gray-300 mb-1">
+              Lista de Jogadoras (Opcional)
+            </label>
+            <textarea 
+              id="playersList" 
+              name="playersList" 
+              value={formData.playersList} 
+              onChange={handleChange} 
+              rows={6} 
+              className="bg-gray-800 text-white block w-full px-4 py-2 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none" 
+              placeholder="Digite uma jogadora por linha no formato:&#10;Nome da Jogadora - CPF&#10;Maria Silva - 123.456.789-00&#10;Ana Santos - 987.654.321-00 - Atacante&#10;&#10;Posições disponíveis: Goleira, Zagueira, Lateral, Volante, Meia, Atacante"
+            ></textarea>
+            <p className="text-xs text-gray-400 mt-1">
+              💡 Dica: Use o formato "Nome - CPF" ou "Nome - CPF - Posição" (uma jogadora por linha)
+            </p>
           </div>
           <div>
             <label htmlFor="additionalInfo" className="block text-sm font-medium text-gray-300 mb-1">
