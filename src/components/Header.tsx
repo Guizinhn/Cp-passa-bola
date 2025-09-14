@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDownIcon, MenuIcon, XIcon } from 'lucide-react';
+interface HeaderProps {
+  onLoginClick: () => void;
+}
+
 export const Header = ({
   onLoginClick
-}) => {
+}: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showTournamentDropdown, setShowTournamentDropdown] = useState(false);
   return <header className="w-full py-4 px-6 lg:px-12 bg-black bg-opacity-30 backdrop-blur-sm fixed top-0 z-50">
@@ -39,6 +43,9 @@ export const Header = ({
                 </Link>
               </div>}
           </div>
+          <Link to="/teams" className="text-white hover:text-purple-300 transition-colors">
+            Times
+          </Link>
           <Link to="/chat" className="text-white hover:text-purple-300 transition-colors">
             Chat
           </Link>
@@ -68,6 +75,9 @@ export const Header = ({
                     </Link>
                   </div>}
               </div>
+              <Link to="/teams" className="text-white hover:text-purple-300 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                Times
+              </Link>
               <Link to="/chat" className="text-white hover:text-purple-300 transition-colors" onClick={() => setIsMenuOpen(false)}>
                 Chat
               </Link>

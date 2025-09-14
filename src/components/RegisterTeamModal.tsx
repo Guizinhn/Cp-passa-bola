@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { XIcon, UserIcon, MailIcon, PhoneIcon, MapPinIcon } from 'lucide-react';
+import { useTeams } from '../contexts/TeamsContext';
+
+interface RegisterTeamModalProps {
+  onClose: () => void;
+}
+
 export const RegisterTeamModal = ({
   onClose
-}) => {
+}: RegisterTeamModalProps) => {
+  const { addTeam } = useTeams();
   const [formData, setFormData] = useState({
     teamName: '',
     contactPerson: '',
@@ -13,7 +20,7 @@ export const RegisterTeamModal = ({
     category: '',
     additionalInfo: ''
   });
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const {
       name,
       value
@@ -23,11 +30,34 @@ export const RegisterTeamModal = ({
       [name]: value
     }));
   };
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-    // For now, just close the modal
+    
+    // Adicionar o time ao contexto
+    addTeam({
+      teamName: formData.teamName,
+      contactPerson: formData.contactPerson,
+      email: formData.email,
+      phone: formData.phone,
+      city: formData.city,
+      state: formData.state,
+      category: formData.category,
+      additionalInfo: formData.additionalInfo,
+    });
+    
+    // Resetar o formulário
+    setFormData({
+      teamName: '',
+      contactPerson: '',
+      email: '',
+      phone: '',
+      city: '',
+      state: '',
+      category: '',
+      additionalInfo: ''
+    });
+    
+    // Fechar o modal
     onClose();
   };
   return <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">

@@ -1,5 +1,11 @@
 import React from 'react';
 import { AppRouter } from './AppRouter';
+import { TeamsProvider } from './contexts/TeamsContext';
+
 export function App() {
-  return <AppRouter />;
+  return (
+    <TeamsProvider>
+      <AppRouter />
+    </TeamsProvider>
+  );
 }
