@@ -1,240 +1,88 @@
 import React, { useState } from 'react';
-import { Header } from '../components/Header';
-import { LoginModal } from '../components/LoginModal';
-export const TournamentNational = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const teams = [{
-    position: 1,
-    name: 'Corinthians',
-    played: 20,
-    won: 16,
-    drawn: 3,
-    lost: 1,
-    points: 51
-  }, {
-    position: 2,
-    name: 'São Paulo FC',
-    played: 20,
-    won: 15,
-    drawn: 2,
-    lost: 3,
-    points: 47
-  }, {
-    position: 3,
-    name: 'Palmeiras',
-    played: 20,
-    won: 14,
-    drawn: 3,
-    lost: 3,
-    points: 45
-  }, {
-    position: 4,
-    name: 'Flamengo',
-    played: 20,
-    won: 13,
-    drawn: 4,
-    lost: 3,
-    points: 43
-  }, {
-    position: 5,
-    name: 'Grêmio',
-    played: 20,
-    won: 12,
-    drawn: 3,
-    lost: 5,
-    points: 39
-  }, {
-    position: 6,
-    name: 'Internacional',
-    played: 20,
-    won: 11,
-    drawn: 5,
-    lost: 4,
-    points: 38
-  }, {
-    position: 7,
-    name: 'Santos',
-    played: 20,
-    won: 11,
-    drawn: 2,
-    lost: 7,
-    points: 35
-  }, {
-    position: 8,
-    name: 'Fluminense',
-    played: 20,
-    won: 9,
-    drawn: 4,
-    lost: 7,
-    points: 31
-  }, {
-    position: 9,
-    name: 'Atlético-MG',
-    played: 20,
-    won: 8,
-    drawn: 6,
-    lost: 6,
-    points: 30
-  }, {
-    position: 10,
-    name: 'Cruzeiro',
-    played: 20,
-    won: 8,
-    drawn: 5,
-    lost: 7,
-    points: 29
-  }];
-  return <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
-      <Header onLoginClick={() => setShowLoginModal(true)} />
-      <div className="pt-24 px-6 lg:px-12 pb-20">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-            Campeonato Nacional
-          </h1>
-          <p className="text-gray-300 mb-8">
-            Classificação atual no Campeonato Brasileiro de Futebol Feminino
+import SearchBar from '../components/SearchBar';
+import TeamCard from '../components/TeamCard';
+import MatchResult from '../components/MatchResult';
+import { useFootballData } from '../hooks/useFootballData';
+import { TeamInfo } from '../types/football'; // Importe TeamInfo
+
+function TournamentNational() {
+  const { teams, matches, loading, error, searchTeams, fetchMatchesByTeam } = useFootballData();
+  const [selectedTeam, setSelectedTeam] = useState<TeamInfo | null>(null);
+
+  const handleSearch = (query: string) => {
+    setSelectedTeam(null); // Limpa o time selecionado ao fazer nova busca
+    searchTeams(query);
+  };
+
+  const handleViewMatches = (teamId: number, teamName: string) => {
+    // Encontrar o TeamInfo completo para o time selecionado
+    const foundTeam = teams.find(team => team.team.id === teamId);
+    if (foundTeam) {
+      setSelectedTeam(foundTeam);
+      fetchMatchesByTeam(teamId, 2023); // Foca em 2023, como a API gratuita restringe
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-4">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-extrabold text-center text-gray-900 mb-8">
+          Resultados de Futebol (2023)
+        </h1>
+
+        <SearchBar onSearch={handleSearch} />
+
+        {loading && <p className="text-center text-blue-600 text-lg">Carregando dados...</p>}
+        {error && <p className="text-center text-red-600 text-lg">{error}</p>}
+
+        {!loading && !error && teams.length === 0 && !selectedTeam && (
+          <p className="text-center text-gray-500 text-lg">
+            Use a barra de busca para encontrar seu time favorito.
           </p>
-          <div className="bg-gray-800 bg-opacity-70 rounded-lg shadow-lg overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-purple-900">
-                    <th className="py-3 px-4 text-left text-white font-semibold">
-                      Pos
-                    </th>
-                    <th className="py-3 px-4 text-left text-white font-semibold">
-                      Time
-                    </th>
-                    <th className="py-3 px-4 text-center text-white font-semibold">
-                      J
-                    </th>
-                    <th className="py-3 px-4 text-center text-white font-semibold">
-                      V
-                    </th>
-                    <th className="py-3 px-4 text-center text-white font-semibold">
-                      E
-                    </th>
-                    <th className="py-3 px-4 text-center text-white font-semibold">
-                      D
-                    </th>
-                    <th className="py-3 px-4 text-center text-white font-semibold">
-                      Pts
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teams.map((team, index) => <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-700'} hover:bg-gray-600 transition-colors`}>
-                      <td className="py-3 px-4 text-white">
-                        <div className="flex items-center">
-                          <span className={`
-                            w-6 h-6 rounded-full flex items-center justify-center mr-2 text-xs font-bold
-                            ${team.position <= 4 ? 'bg-green-600' : team.position <= 6 ? 'bg-blue-600' : team.position >= 9 ? 'bg-red-600' : 'bg-gray-600'}
-                          `}>
-                            {team.position}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4 font-medium text-white">
-                        {team.name}
-                      </td>
-                      <td className="py-3 px-4 text-center text-gray-300">
-                        {team.played}
-                      </td>
-                      <td className="py-3 px-4 text-center text-gray-300">
-                        {team.won}
-                      </td>
-                      <td className="py-3 px-4 text-center text-gray-300">
-                        {team.drawn}
-                      </td>
-                      <td className="py-3 px-4 text-center text-gray-300">
-                        {team.lost}
-                      </td>
-                      <td className="py-3 px-4 text-center font-bold text-white">
-                        {team.points}
-                      </td>
-                    </tr>)}
-                </tbody>
-              </table>
-            </div>
-            <div className="p-4 bg-gray-700 border-t border-gray-600">
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center">
-                  <span className="w-4 h-4 bg-green-600 rounded-full mr-2"></span>
-                  <span className="text-sm text-gray-300">
-                    Classificação Libertadores
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-4 h-4 bg-blue-600 rounded-full mr-2"></span>
-                  <span className="text-sm text-gray-300">
-                    Copa Sul-Americana
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-4 h-4 bg-red-600 rounded-full mr-2"></span>
-                  <span className="text-sm text-gray-300">
-                    Zona de Rebaixamento
-                  </span>
-                </div>
-              </div>
-            </div>
+        )}
+
+        {/* Exibe times encontrados */}
+        {!selectedTeam && teams.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+            {teams.map((teamInfo) => (
+              <TeamCard
+                key={teamInfo.team.id}
+                teamInfo={teamInfo}
+                onViewMatches={(teamId) => handleViewMatches(teamId, teamInfo.team.name)}
+              />
+            ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-            <div className="bg-gray-800 bg-opacity-70 rounded-lg p-6 shadow-lg col-span-1 md:col-span-2">
-              <h2 className="text-xl font-bold text-white mb-4">
-                Notícias do Campeonato
-              </h2>
+        )}
+
+        {/* Exibe resultados de partidas do time selecionado */}
+        {selectedTeam && (
+          <div className="mt-8">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+              <img src={selectedTeam.team.logo} alt={selectedTeam.team.name} className="w-10 h-10 mr-3 object-contain" />
+              Jogos de {selectedTeam.team.name} em 2023
+              <button
+                onClick={() => setSelectedTeam(null)}
+                className="ml-auto px-3 py-1 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition-colors text-sm"
+              >
+                Voltar à busca
+              </button>
+            </h2>
+            {matches.length > 0 ? (
               <div className="space-y-4">
-                <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="text-white font-medium">
-                    Corinthians Amplia Vantagem
-                  </h3>
-                  <p className="text-gray-300 text-sm mt-1">
-                    Com mais uma vitória impressionante neste fim de semana, o
-                    Corinthians amplia sua vantagem na liderança da tabela.
-                  </p>
-                </div>
-                <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="text-white font-medium">
-                    Jovens Talentos do São Paulo
-                  </h3>
-                  <p className="text-gray-300 text-sm mt-1">
-                    Jovens talentos da base do São Paulo continuam fazendo ondas
-                    no campeonato nacional.
-                  </p>
-                </div>
-                <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="text-white font-medium">
-                    Dificuldades do Santos Continuam
-                  </h3>
-                  <p className="text-gray-300 text-sm mt-1">
-                    Após mais uma derrota, o Santos precisará se reorganizar
-                    para manter sua posição no meio da tabela.
-                  </p>
-                </div>
+                {matches
+                  .sort((a, b) => new Date(b.fixture.date).getTime() - new Date(a.fixture.date).getTime()) // Ordena por data mais recente
+                  .map((match) => (
+                    <MatchResult key={match.fixture.id} match={match} />
+                  ))}
               </div>
-            </div>
-            <div className="bg-gray-800 bg-opacity-70 rounded-lg p-6 shadow-lg">
-              <h2 className="text-xl font-bold text-white mb-4">
-                Melhores Times
-              </h2>
-              <div className="space-y-3">
-                {teams.slice(0, 5).map((team, index) => <div key={index} className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <span className="w-6 h-6 rounded-full bg-purple-700 flex items-center justify-center text-xs font-bold text-white mr-2">
-                        {team.position}
-                      </span>
-                      <span className="text-white">{team.name}</span>
-                    </div>
-                    <span className="font-bold text-purple-300">
-                      {team.points} pts
-                    </span>
-                  </div>)}
-              </div>
-            </div>
+            ) : (
+              <p className="text-center text-gray-500 text-lg">Nenhum jogo encontrado para este time em 2023.</p>
+            )}
           </div>
-        </div>
+        )}
       </div>
-      {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
-    </div>;
-};
+    </div>
+  );
+}
+
+export default TournamentNational;

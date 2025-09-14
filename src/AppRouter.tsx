@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { TournamentRegional } from './pages/TournamentRegional';
-import { TournamentNational } from './pages/TournamentNational';
+import TournamentNational from './pages/TournamentNational';
 import { TournamentUpcoming } from './pages/TournamentUpcoming';
 import { ChatPage } from './pages/ChatPage';
 import { LoginPage } from './pages/LoginPage';
