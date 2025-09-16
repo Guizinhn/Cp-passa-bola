@@ -17,7 +17,7 @@ export function AppRouter() {
         <Route path="/tournaments/national" element={<TournamentNational />} />
         <Route path="/tournaments/upcoming" element={<TournamentUpcoming />} />
 
-        {/* rotas protegidas */}
+        {/* 🔒 Chat protegido */}
         <Route
           path="/chat"
           element={
@@ -26,16 +26,11 @@ export function AppRouter() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/teams"
-          element={
-            <PrivateRoute>
-              <RegisteredTeams />
-            </PrivateRoute>
-          }
-        />
 
         <Route path="/login" element={<LoginPage />} />
+
+        {/* ✅ Times agora é pública */}
+        <Route path="/teams" element={<RegisteredTeams />} />
       </Routes>
     </BrowserRouter>
   );

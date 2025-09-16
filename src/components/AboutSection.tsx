@@ -27,7 +27,7 @@ export const AboutSection = () => {
             {/* Alê Xavier */}
             <div className="flex flex-col items-center text-center bg-gray-800 p-8 rounded-xl shadow-lg transition-transform hover:scale-105 duration-300 ease-in-out">
               <div className="w-40 h-40 bg-purple-700 rounded-full flex items-center justify-center mb-6 overflow-hidden border-4 border-purple-500">
-                <img src="/placeholder-fundadora1.jpg" alt="Alê Xavier" className="object-cover w-full h-full" />
+                <img src="/src/img/Imagem do WhatsApp de 2025-09-14 à(s) 23.49.47_594d07a3.jpg" alt="Alê Xavier" className="object-cover w-full h-full" />
               </div>
               <h4 className="text-2xl font-semibold text-white mb-3">Alê Xavier</h4>
               <p className="text-purple-200 text-sm italic mb-4">Visionária e Comentarista Esportiva</p>
@@ -38,7 +38,7 @@ export const AboutSection = () => {
             {/* Luana Maluf */}
             <div className="flex flex-col items-center text-center bg-gray-800 p-8 rounded-xl shadow-lg transition-transform hover:scale-105 duration-300 ease-in-out">
               <div className="w-40 h-40 bg-blue-700 rounded-full flex items-center justify-center mb-6 overflow-hidden border-4 border-blue-500">
-                <img src="/placeholder-fundadora2.jpg" alt="Luana Maluf" className="object-cover w-full h-full" />
+                <img src="/src/img/outra 2.jpg" alt="Luana Maluf" className="object-cover w-full h-full" />
               </div>
               <h4 className="text-2xl font-semibold text-white mb-3">Luana Maluf</h4>
               <p className="text-blue-200 text-sm italic mb-4">Jornalista e Defensora do Esporte</p>
@@ -56,7 +56,7 @@ export const AboutSection = () => {
             Por trás de cada gol, cada torneio e cada conexão, há uma equipe dedicada trabalhando com paixão. Somos um time comprometido em impulsionar o futebol feminino e criar uma experiência inesquecível para todos.
           </p>
           <div className="w-full max-w-3xl h-80 bg-gray-700 rounded-xl flex items-center justify-center overflow-hidden shadow-2xl">
-            <img src="/placeholder-equipe.jpg" alt="Equipe Passa a Bola" className="object-cover w-full h-full" />
+            <img src="/src/img/PASSA BOLA.jpg" alt="Equipe Passa a Bola" className="object-cover w-full h-full" />
           </div>
         </div>
 
