@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDownIcon, MenuIcon, XIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -12,6 +12,31 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
   const [showTournamentDropdown, setShowTournamentDropdown] = useState(false);
 
   const { user, logout } = useAuth();
+
+  // Fechar menu quando clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isMenuOpen && !target.closest('header')) {
+        setIsMenuOpen(false);
+        setShowTournamentDropdown(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  // Fechar menu quando a rota mudar
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setShowTournamentDropdown(false);
+  }, []);
 
   return (
     <header className="w-full py-4 px-6 lg:px-12 bg-black bg-opacity-30 backdrop-blur-sm fixed top-0 z-50">
@@ -92,6 +117,102 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
             </button>
           )}
         </nav>
+      </div>
+
+      {/* Menu Mobile */}
+      <div className={`lg:hidden absolute top-full left-0 right-0 bg-black bg-opacity-95 backdrop-blur-md border-t border-purple-500/30 transition-all duration-300 ease-in-out ${
+        isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
+      }`}>
+        <nav className="px-6 py-4 space-y-4">
+            <Link
+              to="/"
+              className="block text-white hover:text-purple-300 transition-colors py-2 border-b border-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Início
+            </Link>
+            
+            {/* Torneios Mobile */}
+            <div className="border-b border-gray-700 pb-2">
+              <button
+                className="w-full text-left text-white hover:text-purple-300 transition-colors py-2 flex items-center justify-between"
+                onClick={() => setShowTournamentDropdown(!showTournamentDropdown)}
+              >
+                Torneios <ChevronDownIcon size={16} className={`transition-transform ${showTournamentDropdown ? 'rotate-180' : ''}`} />
+              </button>
+              {showTournamentDropdown && (
+                <div className="ml-4 mt-2 space-y-2">
+                  <Link
+                    to="/tournaments/regional"
+                    className="block text-gray-300 hover:text-purple-300 transition-colors py-1"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Regional
+                  </Link>
+                  <Link
+                    to="/tournaments/national"
+                    className="block text-gray-300 hover:text-purple-300 transition-colors py-1"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Nacional
+                  </Link>
+                  <Link
+                    to="/tournaments/upcoming"
+                    className="block text-gray-300 hover:text-purple-300 transition-colors py-1"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Próximos Eventos
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <Link
+              to="/teams"
+              className="block text-white hover:text-purple-300 transition-colors py-2 border-b border-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Times
+            </Link>
+            <Link
+              to="/chat"
+              className="block text-white hover:text-purple-300 transition-colors py-2 border-b border-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Chat
+            </Link>
+
+            {/* Autenticação Mobile */}
+            <div className="border-b border-gray-700 pb-2">
+              {user ? (
+                <>
+                  <div className="text-gray-300 py-2">
+                    Bem-vinda, {user.email}
+                  </div>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="block text-white hover:text-purple-300 transition-colors py-2"
+                  >
+                    Sair
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => {
+                    onLoginClick();
+                    setIsMenuOpen(false);
+                  }}
+                  className="block text-white hover:text-purple-300 transition-colors py-2"
+                >
+                  Entrar
+                </button>
+              )}
+            </div>
+          </nav>
+        </div>
       </div>
     </header>
   );
