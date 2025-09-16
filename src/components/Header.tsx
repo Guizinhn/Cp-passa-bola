@@ -213,7 +213,6 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
             </div>
           </nav>
         </div>
-      </div>
     </header>
   );
 };
