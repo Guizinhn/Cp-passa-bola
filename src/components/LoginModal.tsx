@@ -15,9 +15,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
     e.preventDefault();
     try {
       await login(email, password);
-      // Se quiser redirecionar após login, faça aqui (ex: navigate("/"))
+      
     } catch (err) {
-      // se seu login lançar erro, trate aqui
+      
       console.error("Erro no login:", err);
     }
   };

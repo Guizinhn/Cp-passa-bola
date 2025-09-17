@@ -13,7 +13,6 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
 
   const { user, logout } = useAuth();
 
-  // Fechar menu quando clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -32,7 +31,7 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
     };
   }, [isMenuOpen]);
 
-  // Fechar menu quando a rota mudar
+  
   useEffect(() => {
     setIsMenuOpen(false);
     setShowTournamentDropdown(false);
@@ -48,7 +47,7 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
           </div>
         </Link>
 
-        {/* Botão mobile */}
+        
         <button
           className="lg:hidden text-white"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -56,7 +55,7 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
           {isMenuOpen ? <XIcon size={24} /> : <MenuIcon size={24} />}
         </button>
 
-        {/* Navegação Desktop */}
+        
         <nav className="hidden lg:flex items-center space-x-8">
           <Link to="/" className="text-white hover:text-purple-300 transition-colors">
             Início

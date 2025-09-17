@@ -17,7 +17,7 @@ function TournamentNational() {
   };
 
   const handleViewMatches = (teamId: number) => {
-    // Encontrar o TeamInfo completo para o time selecionado
+    
     const foundTeam = teams.find(team => team.team.id === teamId);
     if (foundTeam) {
       setSelectedTeam(foundTeam);
@@ -34,7 +34,7 @@ function TournamentNational() {
       </div>
       
       <div className="relative z-10 max-w-6xl mx-auto p-6">
-        {/* Header Section */}
+        
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <button

@@ -11,10 +11,10 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const location = useLocation();
 
   if (!user) {
-    // Se não estiver logado, vai pro login e guarda a rota atual
+    
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Se estiver logado, renderiza o componente normalmente
+  
   return children;
 };
