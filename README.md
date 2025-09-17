@@ -80,18 +80,6 @@ Para acessar a página de **Chat**, use as seguintes credenciais já configurada
 
 ---
 
-## 📌 Repositório
-
-🔗 [Clique aqui para acessar o repositório](https://github.com/Guizinhn/Cp-passa-bola)
-
----
-
-## 👨‍💻 Autor
-
-Projeto desenvolvido por [**Guizinhn**](https://github.com/Guizinhn).
-
----
-
 ## 👥 Integrantes do Grupo
 
 - Nicolas Barnabe — RM: 561997  
