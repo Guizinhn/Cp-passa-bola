@@ -93,6 +93,9 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
           <Link to="/teams" className="text-white hover:text-purple-300 transition-colors">
             Times
           </Link>
+          <Link to="/dashboard" className="text-white hover:text-purple-300 transition-colors">
+            Dashboard
+          </Link>
           <Link to="/chat" className="text-white hover:text-purple-300 transition-colors">
             Chat
           </Link>
@@ -172,6 +175,13 @@ export const Header = ({ onLoginClick }: HeaderProps) => {
               onClick={() => setIsMenuOpen(false)}
             >
               Times
+            </Link>
+            <Link
+              to="/dashboard"
+              className="block text-white hover:text-purple-300 transition-colors py-2 border-b border-gray-700"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Dashboard
             </Link>
             <Link
               to="/chat"

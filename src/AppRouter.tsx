@@ -6,6 +6,7 @@ import { TournamentUpcoming } from "./pages/TournamentUpcoming";
 import { ChatPage } from "./pages/ChatPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisteredTeams } from "./pages/RegisteredTeams";
+import { DashboardPage } from "./pages/DashboardPage";
 import { PrivateRoute } from "./components/PrivateRoute";
 
 export function AppRouter() {
@@ -29,6 +30,8 @@ export function AppRouter() {
         <Route path="/login" element={<LoginPage />} />
 
         <Route path="/teams" element={<RegisteredTeams />} />
+        
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </BrowserRouter>
   );

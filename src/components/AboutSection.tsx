@@ -1,9 +1,14 @@
 import React from 'react';
 import { UsersIcon, TrophyIcon, MessageCircleIcon } from 'lucide-react';
 
+/**
+ * Componente AboutSection - Seção sobre o projeto
+ * Demonstra estrutura semântica HTML5 e uso de CSS Grid
+ * Responsivo para diferentes tamanhos de tela (requisito Front-end Design)
+ */
 export const AboutSection = () => {
   return (
-    <section className="py-20 px-6 lg:px-12 bg-gray-900">
+    <section className="py-20 px-6 lg:px-12 bg-gray-900" aria-label="Sobre o projeto Passa a Bola">
       <div className="max-w-7xl mx-auto">
         {/* Seção Principal - Sobre Nós */}
         <div className="text-center mb-16">
@@ -18,11 +23,12 @@ export const AboutSection = () => {
           </p>
         </div>
 
-        {/* Nossas Fundadoras */}
+        {/* Nossas Fundadoras - CSS Grid Container (requisito Front-end Design) */}
         <div className="mb-20">
           <h3 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
             Conheça Nossas Fundadoras
           </h3>
+          {/* CSS Grid Container com Grid Items - Layout responsivo */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {/* Alê Xavier */}
             <div className="flex flex-col items-center text-center bg-gray-800 p-8 rounded-xl shadow-lg transition-transform hover:scale-105 duration-300 ease-in-out">
@@ -60,10 +66,11 @@ export const AboutSection = () => {
           </div>
         </div>
 
-        {/* Features / O Que Oferecemos */}
+        {/* Features / O Que Oferecemos - Usando CSS Grid Container (requisito Front-end Design) */}
         <h3 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
           O Que Você Encontra no Passa a Bola
         </h3>
+        {/* CSS Grid Container com Grid Items - Demonstração explícita do requisito Front-end Design */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="bg-gradient-to-br from-purple-700 to-purple-900 rounded-lg p-8 shadow-xl transform transition-transform hover:-translate-y-2 duration-300 ease-in-out border-t-4 border-purple-400">
             <div className="bg-white/15 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">

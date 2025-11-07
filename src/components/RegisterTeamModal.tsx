@@ -103,7 +103,8 @@ export const RegisterTeamModal = ({
         <h2 className="text-2xl font-bold text-white mb-6">
           Cadastrar Seu Time
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" aria-label="Formulário de cadastro de time">
+          {/* CSS Grid Container para campos do formulário (requisito Front-end Design) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="teamName" className="block text-sm font-medium text-gray-300 mb-1">

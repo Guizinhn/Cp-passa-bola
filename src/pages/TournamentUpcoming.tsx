@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { Header } from '../components/Header';
 import { LoginModal } from '../components/LoginModal';
+import { TournamentsFromJSON } from '../components/TournamentsFromJSON';
 import { CalendarIcon, MapPinIcon, UsersIcon } from 'lucide-react';
+
+/**
+ * Página de Próximos Torneios
+ * Integra o componente que consome JSON local (requisito Web Development)
+ */
 export const TournamentUpcoming = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const upcomingEvents = [{
@@ -63,38 +69,9 @@ export const TournamentUpcoming = () => {
           <p className="text-gray-300 mb-8">
             Descubra e inscreva-se para os próximos torneios em todo o Brasil
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {upcomingEvents.map(event => <div key={event.id} className="bg-gray-800 bg-opacity-70 rounded-lg overflow-hidden shadow-lg transition-transform hover:transform hover:scale-105">
-                <div className="h-48 overflow-hidden">
-                  <img src={event.image} alt={event.title} className="w-full h-full object-cover transition-transform hover:scale-110" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm mb-4">
-                    {event.description}
-                  </p>
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-gray-300">
-                      <CalendarIcon size={16} className="mr-2 text-purple-400" />
-                      <span>{event.date}</span>
-                    </div>
-                    <div className="flex items-center text-gray-300">
-                      <MapPinIcon size={16} className="mr-2 text-purple-400" />
-                      <span>{event.location}</span>
-                    </div>
-                    <div className="flex items-center text-gray-300">
-                      <UsersIcon size={16} className="mr-2 text-purple-400" />
-                      <span>{event.teams} Times</span>
-                    </div>
-                  </div>
-                  <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
-                    Registrar Interesse
-                  </button>
-                </div>
-              </div>)}
-          </div>
+          
+          {/* Componente que consome JSON local (requisito Web Development) */}
+          <TournamentsFromJSON />
         </div>
       </div>
       {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}

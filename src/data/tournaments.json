@@ -1,0 +1,87 @@
+{
+  "tournaments": [
+    {
+      "id": 1,
+      "name": "Copa Regional de São Paulo",
+      "type": "regional",
+      "date": "2024-10-15",
+      "endDate": "2024-10-22",
+      "location": "São Paulo, SP",
+      "teams": 16,
+      "status": "upcoming",
+      "prize": "R$ 50.000,00",
+      "description": "A copa regional anual reunindo os melhores times do estado de São Paulo.",
+      "categories": ["adulto", "sub18"],
+      "registeredTeams": 12
+    },
+    {
+      "id": 2,
+      "name": "Campeonato Carioca Feminino",
+      "type": "regional",
+      "date": "2024-11-05",
+      "endDate": "2024-11-12",
+      "location": "Rio de Janeiro, RJ",
+      "teams": 12,
+      "status": "upcoming",
+      "prize": "R$ 40.000,00",
+      "description": "O principal evento de futebol feminino no Rio de Janeiro com times de todo o estado.",
+      "categories": ["adulto"],
+      "registeredTeams": 8
+    },
+    {
+      "id": 3,
+      "name": "Torneio Nacional Juvenil",
+      "type": "national",
+      "date": "2024-12-01",
+      "endDate": "2024-12-10",
+      "location": "Belo Horizonte, MG",
+      "teams": 24,
+      "status": "upcoming",
+      "prize": "R$ 100.000,00",
+      "description": "Apresentando as futuras estrelas do futebol feminino com times juvenis de todo o Brasil.",
+      "categories": ["sub18", "sub16", "sub14"],
+      "registeredTeams": 18
+    },
+    {
+      "id": 4,
+      "name": "Copa Nordeste",
+      "type": "regional",
+      "date": "2025-01-15",
+      "endDate": "2025-01-25",
+      "location": "Recife, PE",
+      "teams": 10,
+      "status": "upcoming",
+      "prize": "R$ 35.000,00",
+      "description": "O campeonato nordestino com os melhores times da região.",
+      "categories": ["adulto", "sub18"],
+      "registeredTeams": 6
+    },
+    {
+      "id": 5,
+      "name": "Finais da Copa Brasil",
+      "type": "national",
+      "date": "2025-02-10",
+      "endDate": "2025-02-15",
+      "location": "Brasília, DF",
+      "teams": 4,
+      "status": "upcoming",
+      "prize": "R$ 200.000,00",
+      "description": "O ponto culminante da competição nacional com os quatro finalistas disputando o título.",
+      "categories": ["adulto"],
+      "registeredTeams": 4
+    }
+  ],
+  "statistics": {
+    "totalTournaments": 5,
+    "totalTeams": 66,
+    "totalRegisteredTeams": 48,
+    "totalPrizeMoney": 425000,
+    "categories": {
+      "adulto": 4,
+      "sub18": 3,
+      "sub16": 1,
+      "sub14": 1
+    }
+  }
+}
+

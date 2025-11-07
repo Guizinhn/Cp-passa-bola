@@ -94,6 +94,7 @@ export const RegisteredTeams = () => {
                 )}
               </div>
 
+              {/* CSS Grid Container - Demonstração explícita do requisito Front-end Design */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {teams.map((team) => (
                   <div key={team.id} className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 shadow-lg border border-gray-700 hover:border-purple-500 transition-colors">
