@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CalendarIcon, MapPinIcon, UsersIcon, TrophyIcon, ChevronDownIcon } from 'lucide-react';
+
+// Importação estática do JSON local (requisito Web Development - consumo de API local)
+import tournamentsData from '../data/tournaments.json';
 
 /**
  * Interface para os dados do torneio vindos do JSON
@@ -33,39 +36,13 @@ interface TournamentsData {
 /**
  * Componente que consome dados de um JSON local
  * Este componente demonstra o consumo de API local (requisito Web Development)
+ * Usa importação estática do JSON para garantir funcionamento correto no Vite
  */
 export const TournamentsFromJSON: React.FC = () => {
-  const [data, setData] = useState<TournamentsData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  // Dados do JSON importados estaticamente
+  const data = tournamentsData as TournamentsData;
   const [selectedTournament, setSelectedTournament] = useState<Tournament | null>(null);
   const [filterType, setFilterType] = useState<string>('all');
-
-  /**
-   * Função para carregar dados do JSON local
-   * Simula um fetch de API, mas usando um arquivo JSON estático
-   */
-  useEffect(() => {
-    const loadTournamentsData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        // Importação dinâmica do JSON local usando import do Vite
-        const jsonModule = await import('../data/tournaments.json');
-        const jsonData: TournamentsData = jsonModule.default || jsonModule;
-        setData(jsonData);
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Erro desconhecido ao carregar dados';
-        setError(errorMessage);
-        console.error('Erro ao carregar torneios:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadTournamentsData();
-  }, []);
 
   /**
    * Manipulação de evento de clique para mostrar detalhes do torneio
@@ -93,30 +70,10 @@ export const TournamentsFromJSON: React.FC = () => {
   /**
    * Filtrar torneios baseado no tipo selecionado
    */
-  const filteredTournaments = data?.tournaments.filter(tournament => {
+  const filteredTournaments = data.tournaments.filter(tournament => {
     if (filterType === 'all') return true;
     return tournament.type === filterType;
-  }) || [];
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="text-white text-xl">Carregando torneios...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="text-red-400 text-xl">Erro: {error}</div>
-      </div>
-    );
-  }
-
-  if (!data) {
-    return null;
-  }
+  });
 
   return (
     <div className="w-full max-w-7xl mx-auto px-6 py-8">

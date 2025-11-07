@@ -1,3 +1,6 @@
+// Importação da imagem de fundo (requisito para funcionar no Vite)
+import heroBackgroundImage from '../img/pexels-shvetsa-5068688.jpg';
+
 interface HeroProps {
   onRegisterClick: () => void;
   onLearnMoreClick: () => void;
@@ -28,7 +31,7 @@ export const Hero = ({
   return <section className="relative min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 pt-24 overflow-hidden" aria-label="Seção principal">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 via-black/80 to-gray-900/90 z-10"></div>
-        <img src="/src/img/pexels-shvetsa-5068688.jpg" alt="Jogadoras de futebol feminino" className="w-full h-full object-cover" />
+        <img src={heroBackgroundImage} alt="Jogadoras de futebol feminino" className="w-full h-full object-cover" />
       </div>
       <div className="relative z-10 flex flex-col justify-center px-6 lg:px-12 py-20">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-4">
